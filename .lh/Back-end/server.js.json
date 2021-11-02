@@ -1,0 +1,114 @@
+{
+    "sourceFile": "Back-end/server.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 24,
+            "patches": [
+                {
+                    "date": 1633071909454,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1633072008303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,6 +20,6 @@\n     });\r\n });\r\n \r\n app.listen(process.env.PORT,()=>{\r\n-    console.log(`Server is running on port:  ${port} `);\r\n+    console.log(`Server is running on port:  ${process.env.PORT} `);\r\n })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1633072270937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,17 +2,18 @@\n const morgan = require(\"morgan\");\r\n const helmet = require(\"helmet\");\r\n const cors = require(\"cors\");\r\n const dotenv = require(\"dotenv\");\r\n+const bodyParser = require(\"body-Parser\")\r\n dotenv.config();\r\n \r\n const port = process.env.PORT || 6969;\r\n const app = express()\r\n \r\n app.use(morgan(\"tiny\"));\r\n app.use(helmet());\r\n app.use(cors());\r\n-app.use(express.json());\r\n+app.use(bodyParser());\r\n \r\n \r\n app.get(\"/api\",(req,res)=>{\r\n     res.json({\r\n"
+                },
+                {
+                    "date": 1633074500980,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,19 +1,19 @@\n const express = require('express');\r\n-const morgan = require(\"morgan\");\r\n-const helmet = require(\"helmet\");\r\n-const cors = require(\"cors\");\r\n-const dotenv = require(\"dotenv\");\r\n-const bodyParser = require(\"body-Parser\")\r\n+const morgan = require('morgan');\r\n+const helmet = require('helmet');\r\n+const cors = require('cors');\r\n+const dotenv = require('dotenv');\r\n+const bodyParser = require('body-parser')\r\n dotenv.config();\r\n \r\n const port = process.env.PORT || 6969;\r\n const app = express()\r\n \r\n app.use(morgan(\"tiny\"));\r\n app.use(helmet());\r\n app.use(cors());\r\n-app.use(bodyParser());\r\n+app.use(bodyParser());  \r\n \r\n \r\n app.get(\"/api\",(req,res)=>{\r\n     res.json({\r\n"
+                },
+                {
+                    "date": 1633074642926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,11 +11,15 @@\n \r\n app.use(morgan(\"tiny\"));\r\n app.use(helmet());\r\n app.use(cors());\r\n-app.use(bodyParser());  \r\n+// app.use(bodyParser());  \r\n \r\n+app.use(express.urlencoded({\r\n+  extended: true\r\n+}));\r\n \r\n+\r\n app.get(\"/api\",(req,res)=>{\r\n     res.json({\r\n         message:\"Hello dev\",\r\n     });\r\n"
+                },
+                {
+                    "date": 1633074813171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n app.use(morgan(\"tiny\"));\r\n app.use(helmet());\r\n app.use(cors());\r\n // app.use(bodyParser());  \r\n+app.use(bodyParser.json());\r\n \r\n app.use(express.urlencoded({\r\n   extended: true\r\n }));\r\n"
+                },
+                {
+                    "date": 1633074993910,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n const cors = require('cors');\r\n const dotenv = require('dotenv');\r\n const bodyParser = require('body-parser')\r\n dotenv.config();\r\n+const db = require('./config/db')\r\n \r\n const port = process.env.PORT || 6969;\r\n const app = express()\r\n \r\n@@ -19,8 +20,10 @@\n   extended: true\r\n }));\r\n \r\n \r\n+db.connectDB();\r\n+\r\n app.get(\"/api\",(req,res)=>{\r\n     res.json({\r\n         message:\"Hello dev\",\r\n     });\r\n"
+                },
+                {
+                    "date": 1633075030227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,14 +13,17 @@\n app.use(morgan(\"tiny\"));\r\n app.use(helmet());\r\n app.use(cors());\r\n // app.use(bodyParser());  \r\n-app.use(bodyParser.json());\r\n+// app.use(bodyParser.json());\r\n \r\n-app.use(express.urlencoded({\r\n-  extended: true\r\n-}));\r\n+// app.use(express.urlencoded({\r\n+//   extended: true\r\n+// }));\r\n \r\n+app.use(bodyParser.urlencoded({\r\n+    extended: true\r\n+  }));\r\n \r\n db.connectDB();\r\n \r\n app.get(\"/api\",(req,res)=>{\r\n"
+                },
+                {
+                    "date": 1633075069000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n const cors = require('cors');\r\n const dotenv = require('dotenv');\r\n const bodyParser = require('body-parser')\r\n dotenv.config();\r\n-const db = require('./config/db')\r\n+const db = require('./src/config/db')\r\n \r\n const port = process.env.PORT || 6969;\r\n const app = express()\r\n \r\n"
+                },
+                {
+                    "date": 1633141361743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,12 +2,14 @@\n const morgan = require('morgan');\r\n const helmet = require('helmet');\r\n const cors = require('cors');\r\n const dotenv = require('dotenv');\r\n-const bodyParser = require('body-parser')\r\n+const bodyParser = require('body-parser');\r\n dotenv.config();\r\n-const db = require('./src/config/db')\r\n+const db = require('./src/config/db');\r\n \r\n+const userAuth = require('./src/routes/userRoute');\r\n+\r\n const port = process.env.PORT || 6969;\r\n const app = express()\r\n \r\n app.use(morgan(\"tiny\"));\r\n@@ -31,7 +33,10 @@\n         message:\"Hello dev\",\r\n     });\r\n });\r\n \r\n+app.use('/api/auth', userAuth);\r\n+\r\n+\r\n app.listen(process.env.PORT,()=>{\r\n     console.log(`Server is running on port:  ${process.env.PORT} `);\r\n })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1633142947192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,13 +27,13 @@\n   }));\r\n \r\n db.connectDB();\r\n \r\n-app.get(\"/api\",(req,res)=>{\r\n-    res.json({\r\n-        message:\"Hello dev\",\r\n-    });\r\n-});\r\n+// app.get(\"/api\",(req,res)=>{\r\n+//     res.json({\r\n+//         message:\"Hello dev\",\r\n+//     });\r\n+// });\r\n \r\n app.use('/api/auth', userAuth);\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1633144486720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,13 +27,13 @@\n   }));\r\n \r\n db.connectDB();\r\n \r\n-// app.get(\"/api\",(req,res)=>{\r\n-//     res.json({\r\n-//         message:\"Hello dev\",\r\n-//     });\r\n-// });\r\n+app.get(\"/api\",(req,res)=>{\r\n+    res.json({\r\n+        message:\"Hello dev\",\r\n+    });\r\n+});\r\n \r\n app.use('/api/auth', userAuth);\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1633158003960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,15 +17,15 @@\n app.use(cors());\r\n // app.use(bodyParser());  \r\n // app.use(bodyParser.json());\r\n \r\n-// app.use(express.urlencoded({\r\n-//   extended: true\r\n-// }));\r\n+app.use(express.urlencoded({\r\n+  extended: true\r\n+}));\r\n \r\n-app.use(bodyParser.urlencoded({\r\n-    extended: true\r\n-  }));\r\n+// app.use(bodyParser.urlencoded({\r\n+//     extended: true\r\n+//   }));\r\n \r\n db.connectDB();\r\n \r\n app.get(\"/api\",(req,res)=>{\r\n"
+                },
+                {
+                    "date": 1633158089570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n const bodyParser = require('body-parser');\r\n dotenv.config();\r\n const db = require('./src/config/db');\r\n \r\n+const route = require('./route')\r\n const userAuth = require('./src/routes/userRoute');\r\n \r\n const port = process.env.PORT || 6969;\r\n const app = express()\r\n@@ -25,8 +26,9 @@\n // app.use(bodyParser.urlencoded({\r\n //     extended: true\r\n //   }));\r\n \r\n+route(app);\r\n db.connectDB();\r\n \r\n app.get(\"/api\",(req,res)=>{\r\n     res.json({\r\n"
+                },
+                {
+                    "date": 1633158112380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n const bodyParser = require('body-parser');\r\n dotenv.config();\r\n const db = require('./src/config/db');\r\n \r\n-const route = require('./route')\r\n+const route = require('./src/routes')\r\n const userAuth = require('./src/routes/userRoute');\r\n \r\n const port = process.env.PORT || 6969;\r\n const app = express()\r\n"
+                },
+                {
+                    "date": 1633159596220,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,11 @@\n app.use(cors());\r\n // app.use(bodyParser());  \r\n // app.use(bodyParser.json());\r\n \r\n+\r\n+\r\n+app.use(express.json())\r\n app.use(express.urlencoded({\r\n   extended: true\r\n }));\r\n \r\n"
+                },
+                {
+                    "date": 1633159633116,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n // app.use(bodyParser.json());\r\n \r\n \r\n \r\n-app.use(express.json())\r\n+//app.use(express.json())\r\n app.use(express.urlencoded({\r\n   extended: true\r\n }));\r\n \r\n"
+                },
+                {
+                    "date": 1633159646975,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n // app.use(bodyParser.json());\r\n \r\n \r\n \r\n-//app.use(express.json())\r\n+app.use(express.json())\r\n app.use(express.urlencoded({\r\n   extended: true\r\n }));\r\n \r\n"
+                },
+                {
+                    "date": 1633159706243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,12 +20,15 @@\n // app.use(bodyParser.json());\r\n \r\n \r\n \r\n+app.use(bodyParser.urlencoded({\r\n+    extended: true\r\n+  }));\r\n app.use(express.json())\r\n-app.use(express.urlencoded({\r\n-  extended: true\r\n-}));\r\n+// app.use(express.urlencoded({\r\n+//   extended: true\r\n+// }));\r\n \r\n // app.use(bodyParser.urlencoded({\r\n //     extended: true\r\n //   }));\r\n"
+                },
+                {
+                    "date": 1633159739247,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n \r\n const port = process.env.PORT || 6969;\r\n const app = express()\r\n \r\n-app.use(morgan(\"tiny\"));\r\n+app.use(morgan(\"combined\"));\r\n app.use(helmet());\r\n app.use(cors());\r\n // app.use(bodyParser());  \r\n // app.use(bodyParser.json());\r\n"
+                },
+                {
+                    "date": 1633185326220,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,53 @@\n+const express = require('express');\r\n+const morgan = require('morgan');\r\n+const helmet = require('helmet');\r\n+const cors = require('cors');\r\n+const dotenv = require('dotenv');\r\n+const bodyParser = require('body-parser');\r\n+dotenv.config();\r\n+const db = require('./src/config/db');\r\n+\r\n+const route = require('./src/routes')\r\n+const userAuth = require('./src/routes/userRoute');\r\n+const {errorHandler} = require('./src/app/middlewares/errorHandler')\r\n+\r\n+const port = process.env.PORT || 6969;\r\n+const app = express()\r\n+\r\n+app.use(morgan(\"combined\"));\r\n+app.use(helmet());\r\n+app.use(cors());\r\n+// app.use(bodyParser());  \r\n+// app.use(bodyParser.json());\r\n+\r\n+\r\n+\r\n+app.use(bodyParser.urlencoded({\r\n+    extended: true\r\n+  }));\r\n+app.use(express.json())\r\n+// app.use(express.urlencoded({\r\n+//   extended: true\r\n+// }));\r\n+\r\n+// app.use(bodyParser.urlencoded({\r\n+//     extended: true\r\n+//   }));\r\n+\r\n+route(app);\r\n+db.connectDB();\r\n+\r\n+app.get(\"/api\",(req,res)=>{\r\n+    res.json({\r\n+        message:\"Hello dev\",\r\n+    });\r\n+});\r\n+\r\n+app.use('/api/auth', userAuth);\r\n+\r\n+app.use(errorHandler);\r\n+\r\n+\r\n+app.listen(process.env.PORT,()=>{\r\n+    console.log(`Server is running on port:  ${process.env.PORT} `);\r\n+})\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1633185598712,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,60 @@\n+const express = require('express');\r\n+const morgan = require('morgan');\r\n+const helmet = require('helmet');\r\n+const cors = require('cors');\r\n+const dotenv = require('dotenv');\r\n+const bodyParser = require('body-parser');\r\n+dotenv.config();\r\n+const db = require('./src/config/db');\r\n+\r\n+const route = require('./src/routes')\r\n+const userAuth = require('./src/routes/userRoute');\r\n+const {errorHandler} = require('./src/app/middlewares/errorHandler')\r\n+\r\n+const port = process.env.PORT || 6969;\r\n+const app = express()\r\n+\r\n+app.use(morgan(\"combined\"));\r\n+app.use(helmet());\r\n+app.use(cors());\r\n+// app.use(bodyParser());  \r\n+// app.use(bodyParser.json());\r\n+\r\n+\r\n+\r\n+app.use(bodyParser.urlencoded({\r\n+    extended: true\r\n+  }));\r\n+app.use(express.json())\r\n+// app.use(express.urlencoded({\r\n+//   extended: true\r\n+// }));\r\n+\r\n+// app.use(bodyParser.urlencoded({\r\n+//     extended: true\r\n+//   }));\r\n+\r\n+route(app);\r\n+db.connectDB();\r\n+\r\n+app.get(\"/api\",(req,res)=>{\r\n+    res.json({\r\n+        message:\"Hello dev\",\r\n+    });\r\n+});\r\n+\r\n+app.use('/api/auth', userAuth);\r\n+\r\n+\r\n+//Unhandled Route\r\n+app.all('*', (req, res, next)=>{\r\n+    const err = new Error('The route can not be found !!!')\r\n+    err.statusCode = 404;\r\n+    next(err)\r\n+})\r\n+app.use(errorHandler);\r\n+\r\n+\r\n+app.listen(process.env.PORT,()=>{\r\n+    console.log(`Server is running on port:  ${process.env.PORT} `);\r\n+})\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1634224948160,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,14 +36,10 @@\n \r\n route(app);\r\n db.connectDB();\r\n \r\n-app.get(\"/api\",(req,res)=>{\r\n-    res.json({\r\n-        message:\"Hello dev\",\r\n-    });\r\n-});\r\n \r\n+\r\n app.use('/api/auth', userAuth);\r\n \r\n \r\n //Unhandled Route\r\n@@ -56,108 +52,5 @@\n \r\n \r\n app.listen(process.env.PORT,()=>{\r\n     console.log(`Server is running on port:  ${process.env.PORT} `);\r\n-})\n-const express = require('express');\r\n-const morgan = require('morgan');\r\n-const helmet = require('helmet');\r\n-const cors = require('cors');\r\n-const dotenv = require('dotenv');\r\n-const bodyParser = require('body-parser');\r\n-dotenv.config();\r\n-const db = require('./src/config/db');\r\n-\r\n-const route = require('./src/routes')\r\n-const userAuth = require('./src/routes/userRoute');\r\n-const {errorHandler} = require('./src/app/middlewares/errorHandler')\r\n-\r\n-const port = process.env.PORT || 6969;\r\n-const app = express()\r\n-\r\n-app.use(morgan(\"combined\"));\r\n-app.use(helmet());\r\n-app.use(cors());\r\n-// app.use(bodyParser());  \r\n-// app.use(bodyParser.json());\r\n-\r\n-\r\n-\r\n-app.use(bodyParser.urlencoded({\r\n-    extended: true\r\n-  }));\r\n-app.use(express.json())\r\n-// app.use(express.urlencoded({\r\n-//   extended: true\r\n-// }));\r\n-\r\n-// app.use(bodyParser.urlencoded({\r\n-//     extended: true\r\n-//   }));\r\n-\r\n-route(app);\r\n-db.connectDB();\r\n-\r\n-app.get(\"/api\",(req,res)=>{\r\n-    res.json({\r\n-        message:\"Hello dev\",\r\n-    });\r\n-});\r\n-\r\n-app.use('/api/auth', userAuth);\r\n-\r\n-app.use(errorHandler);\r\n-\r\n-\r\n-app.listen(process.env.PORT,()=>{\r\n-    console.log(`Server is running on port:  ${process.env.PORT} `);\r\n-})\n-const express = require('express');\r\n-const morgan = require('morgan');\r\n-const helmet = require('helmet');\r\n-const cors = require('cors');\r\n-const dotenv = require('dotenv');\r\n-const bodyParser = require('body-parser');\r\n-dotenv.config();\r\n-const db = require('./src/config/db');\r\n-\r\n-const route = require('./src/routes')\r\n-const userAuth = require('./src/routes/userRoute');\r\n-\r\n-const port = process.env.PORT || 6969;\r\n-const app = express()\r\n-\r\n-app.use(morgan(\"combined\"));\r\n-app.use(helmet());\r\n-app.use(cors());\r\n-// app.use(bodyParser());  \r\n-// app.use(bodyParser.json());\r\n-\r\n-\r\n-\r\n-app.use(bodyParser.urlencoded({\r\n-    extended: true\r\n-  }));\r\n-app.use(express.json())\r\n-// app.use(express.urlencoded({\r\n-//   extended: true\r\n-// }));\r\n-\r\n-// app.use(bodyParser.urlencoded({\r\n-//     extended: true\r\n-//   }));\r\n-\r\n-route(app);\r\n-db.connectDB();\r\n-\r\n-app.get(\"/api\",(req,res)=>{\r\n-    res.json({\r\n-        message:\"Hello dev\",\r\n-    });\r\n-});\r\n-\r\n-app.use('/api/auth', userAuth);\r\n-\r\n-\r\n-app.listen(process.env.PORT,()=>{\r\n-    console.log(`Server is running on port:  ${process.env.PORT} `);\r\n })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635778841010,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,61 @@\n+const express = require('express');\r\n+const morgan = require('morgan');\r\n+const helmet = require('helmet');\r\n+const cors = require('cors');\r\n+const dotenv = require('dotenv');\r\n+const bodyParser = require('body-parser');\r\n+dotenv.config();\r\n+const db = require('./src/config/db');\r\n+\r\n+const route = require('./src/routes')\r\n+const userAuth = require('./src/routes/userRoute');\r\n+const workRoute = require('./src/routes/workRoute');\r\n+const {errorHandler} = require('./src/app/middlewares/errorHandler')\r\n+\r\n+const port = process.env.PORT || 6969;\r\n+const app = express()\r\n+\r\n+app.use(morgan(\"combined\"));\r\n+app.use(helmet());\r\n+app.use(cors());\r\n+// app.use(bodyParser());  \r\n+// app.use(bodyParser.json());\r\n+\r\n+\r\n+\r\n+app.use(bodyParser.urlencoded({\r\n+    extended: true\r\n+  }));\r\n+app.use(express.json())\r\n+// app.use(express.urlencoded({\r\n+//   extended: true\r\n+// }));\r\n+\r\n+// app.use(bodyParser.urlencoded({\r\n+//     extended: true\r\n+//   }));\r\n+\r\n+route(app);\r\n+db.connectDB();\r\n+\r\n+\r\n+\r\n+app.use('/api/auth', userAuth);\r\n+\r\n+//work route\r\n+\r\n+app.use('/api/works', workRoute);\r\n+\r\n+\r\n+//Unhandled Route\r\n+app.all('*', (req, res, next)=>{\r\n+    const err = new Error('The route can not be found !!!')\r\n+    err.statusCode = 404;\r\n+    next(err)\r\n+})\r\n+app.use(errorHandler);\r\n+\r\n+\r\n+app.listen(process.env.PORT,()=>{\r\n+    console.log(`Server is running on port:  ${process.env.PORT} `);\r\n+})\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635783078257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n app.use('/api/auth', userAuth);\r\n \r\n //work route\r\n \r\n-app.use('/api/works', workRoute);\r\n+app.use('/api/work', workRoute);\r\n \r\n \r\n //Unhandled Route\r\n app.all('*', (req, res, next)=>{\r\n@@ -57,61 +57,5 @@\n \r\n \r\n app.listen(process.env.PORT,()=>{\r\n     console.log(`Server is running on port:  ${process.env.PORT} `);\r\n-})\n-const express = require('express');\r\n-const morgan = require('morgan');\r\n-const helmet = require('helmet');\r\n-const cors = require('cors');\r\n-const dotenv = require('dotenv');\r\n-const bodyParser = require('body-parser');\r\n-dotenv.config();\r\n-const db = require('./src/config/db');\r\n-\r\n-const route = require('./src/routes')\r\n-const userAuth = require('./src/routes/userRoute');\r\n-const {errorHandler} = require('./src/app/middlewares/errorHandler')\r\n-\r\n-const port = process.env.PORT || 6969;\r\n-const app = express()\r\n-\r\n-app.use(morgan(\"combined\"));\r\n-app.use(helmet());\r\n-app.use(cors());\r\n-// app.use(bodyParser());  \r\n-// app.use(bodyParser.json());\r\n-\r\n-\r\n-\r\n-app.use(bodyParser.urlencoded({\r\n-    extended: true\r\n-  }));\r\n-app.use(express.json())\r\n-// app.use(express.urlencoded({\r\n-//   extended: true\r\n-// }));\r\n-\r\n-// app.use(bodyParser.urlencoded({\r\n-//     extended: true\r\n-//   }));\r\n-\r\n-route(app);\r\n-db.connectDB();\r\n-\r\n-\r\n-\r\n-app.use('/api/auth', userAuth);\r\n-\r\n-\r\n-//Unhandled Route\r\n-app.all('*', (req, res, next)=>{\r\n-    const err = new Error('The route can not be found !!!')\r\n-    err.statusCode = 404;\r\n-    next(err)\r\n-})\r\n-app.use(errorHandler);\r\n-\r\n-\r\n-app.listen(process.env.PORT,()=>{\r\n-    console.log(`Server is running on port:  ${process.env.PORT} `);\r\n })\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1633071909454,
+            "name": "Commit-0",
+            "content": "const express = require('express');\r\nconst morgan = require(\"morgan\");\r\nconst helmet = require(\"helmet\");\r\nconst cors = require(\"cors\");\r\nconst dotenv = require(\"dotenv\");\r\ndotenv.config();\r\n\r\nconst port = process.env.PORT || 6969;\r\nconst app = express()\r\n\r\napp.use(morgan(\"tiny\"));\r\napp.use(helmet());\r\napp.use(cors());\r\napp.use(express.json());\r\n\r\n\r\napp.get(\"/api\",(req,res)=>{\r\n    res.json({\r\n        message:\"Hello dev\",\r\n    });\r\n});\r\n\r\napp.listen(process.env.PORT,()=>{\r\n    console.log(`Server is running on port:  ${port} `);\r\n})"
+        }
+    ]
+}

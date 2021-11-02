@@ -1,0 +1,46 @@
+{
+    "sourceFile": "Back-end/src/routes/workRoute.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1635776527360,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1635780994383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,12 @@\n const express = require('express');\r\n \r\n const {getAllWorks, createOneWorks, updateOneWork, deleteOneWork} = require('../app/controllers/workController');\r\n \r\n+const {verifyToken} = require('../app/middlewares/verifyToken');\r\n+\r\n const router = express.Router();\r\n \r\n-router.route('/').get(getAllWorks).post(createOneWorks);\r\n-router.route('/:wordId').put(updateOneWork).delete(deleteOneWork);\r\n\\ No newline at end of file\n+router.route('/').get(getAllWorks).post( verifyToken, createOneWorks);\r\n+router.route('/:wordId').put( verifyToken,updateOneWork).delete( verifyToken,deleteOneWork);\r\n \r\n-module.exports = router;\n+module.exports = router;    \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635782070256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,7 +6,7 @@\n \r\n const router = express.Router();\r\n \r\n router.route('/').get(getAllWorks).post( verifyToken, createOneWorks);\r\n-router.route('/:wordId').put( verifyToken,updateOneWork).delete( verifyToken,deleteOneWork);\r\n+router.route('/:workId').put( verifyToken,updateOneWork).delete( verifyToken,deleteOneWork);\r\n \r\n module.exports = router;    \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635782741664,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n const express = require('express');\r\n \r\n-const {getAllWorks, createOneWorks, updateOneWork, deleteOneWork} = require('../app/controllers/workController');\r\n+const {getAllWorks,createOneWorks, updateOneWork, deleteOneWork } = require('../app/controllers/workController');\r\n \r\n const {verifyToken} = require('../app/middlewares/verifyToken');\r\n \r\n const router = express.Router();\r\n"
+                },
+                {
+                    "date": 1635783196732,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,12 @@\n const express = require('express');\r\n \r\n-const {getAllWorks,createOneWorks, updateOneWork, deleteOneWork } = require('../app/controllers/workController');\r\n+const {getAllWork,createOneWorks, updateOneWork, deleteOneWork } = require('../app/controllers/workController');\r\n \r\n const {verifyToken} = require('../app/middlewares/verifyToken');\r\n \r\n const router = express.Router();\r\n \r\n-router.route('/').get(getAllWorks).post( verifyToken, createOneWorks);\r\n+router.route('/').get(getAllWork).post( verifyToken, createOneWork);\r\n router.route('/:workId').put( verifyToken,updateOneWork).delete( verifyToken,deleteOneWork);\r\n \r\n module.exports = router;    \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635783217795,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n const express = require('express');\r\n \r\n-const {getAllWork,createOneWorks, updateOneWork, deleteOneWork } = require('../app/controllers/workController');\r\n+const {getAllWork,createOneWork, updateOneWork, deleteOneWork } = require('../app/controllers/workController');\r\n \r\n const {verifyToken} = require('../app/middlewares/verifyToken');\r\n \r\n const router = express.Router();\r\n"
+                },
+                {
+                    "date": 1635783475744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n const {verifyToken} = require('../app/middlewares/verifyToken');\r\n \r\n const router = express.Router();\r\n \r\n-router.route('/').get(getAllWork).post( verifyToken, createOneWork);\r\n+router.route('/getall').get(getAllWork);\r\n+router.route('/').post( verifyToken, createOneWork);\r\n router.route('/:workId').put( verifyToken,updateOneWork).delete( verifyToken,deleteOneWork);\r\n \r\n module.exports = router;    \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635783897200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n const {verifyToken} = require('../app/middlewares/verifyToken');\r\n \r\n const router = express.Router();\r\n \r\n-router.route('/getall').get(getAllWork);\r\n-router.route('/').post( verifyToken, createOneWork);\r\n+\r\n+router.route('/').get(getAllWork).post( verifyToken, createOneWork);\r\n router.route('/:workId').put( verifyToken,updateOneWork).delete( verifyToken,deleteOneWork);\r\n \r\n module.exports = router;    \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1635776527360,
+            "name": "Commit-0",
+            "content": "const express = require('express');\r\n\r\nconst {getAllWorks, createOneWorks, updateOneWork, deleteOneWork} = require('../app/controllers/workController');\r\n\r\nconst router = express.Router();\r\n\r\nrouter.route('/').get(getAllWorks).post(createOneWorks);\r\nrouter.route('/:wordId').put(updateOneWork).delete(deleteOneWork);\r\n\r\nmodule.exports = router;"
+        }
+    ]
+}

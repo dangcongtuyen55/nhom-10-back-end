@@ -1,0 +1,18 @@
+{
+    "sourceFile": "Back-end/package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1634219962903,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1634219962903,
+            "name": "Commit-0",
+            "content": "{\n  \"name\": \"back-end\",\n  \"version\": \"1.0.0\",\n  \"description\": \"this is project ecommerce\",\n  \"main\": \"server.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"start\": \"node server.js\",\n    \"start-dev\": \"nodemon server.js\"\n  },\n  \"author\": \"CongTuyen\",\n  \"license\": \"ISC\",\n  \"dependencies\": {\n    \"bcryptjs\": \"^2.4.3\",\n    \"body-parser\": \"^1.19.0\",\n    \"cors\": \"^2.8.5\",\n    \"dotenv\": \"^10.0.0\",\n    \"express\": \"^4.17.1\",\n    \"helmet\": \"^4.6.0\",\n    \"jsonwebtoken\": \"^8.5.1\",\n    \"mongoose\": \"^6.0.8\",\n    \"monk\": \"^7.3.4\",\n    \"morgan\": \"^1.10.0\",\n    \"nodemon\": \"^2.0.13\"\n  }\n}\n"
+        }
+    ]
+}

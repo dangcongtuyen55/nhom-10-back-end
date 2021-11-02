@@ -1,0 +1,122 @@
+{
+    "sourceFile": "Back-end/src/app/controllers/workController.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 26,
+            "patches": [
+                {
+                    "date": 1635776796064,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1635776953143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,4 +25,12 @@\n         \r\n     }\r\n }\r\n \r\n+exports.deleteOneWork = async (req, res, next) =>{\r\n+    try {\r\n+        \r\n+    } catch (error) {\r\n+        \r\n+    }\r\n+}\r\n+\r\n"
+                },
+                {
+                    "date": 1635778863422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,35 +2,61 @@\n \r\n \r\n exports.getAllWorks = async (req, res, next) => {\r\n     try {\r\n+\r\n+        const works = await Work.find({}).populate('creator');\r\n+        res.status(200).json({\r\n+            status: 'success',\r\n+            result: works.length,\r\n+            data:{works}\r\n+        })\r\n         \r\n     } catch (error) {\r\n+        res.json({ error})\r\n         \r\n     }\r\n }\r\n \r\n \r\n exports.createOneWorks = async (req, res, next) => {\r\n     try {\r\n-        \r\n+        const {userId} = req.user;\r\n+        const works = await Work.create({...req.body, creator: userId});\r\n+\r\n+        res.status(200).json({\r\n+            status: 'success',\r\n+            data:{works} \r\n+        })\r\n     } catch (error) {\r\n-        \r\n+        res.json({ error})\r\n     }\r\n }\r\n \r\n exports.updateOneWork = async (req, res, next) => {\r\n     try {\r\n-        \r\n+        const {workId} = req.params;\r\n+        const work = await Work.findByIdAndUpdate(workId, {...req.body},{new: true, runValidator:true});\r\n+\r\n+        res.status(200).json({\r\n+            status: 'success',\r\n+            data:{work} \r\n+        })\r\n     } catch (error) {\r\n-        \r\n+        res.json({ error})\r\n     }\r\n }\r\n \r\n exports.deleteOneWork = async (req, res, next) =>{\r\n     try {\r\n-        \r\n+        const {workId} = req.params;\r\n+        await Work.findByIdAndDelete(workId);\r\n+\r\n+        res.status(200).json({\r\n+            status: 'success',\r\n+            message: 'Work deleted successfully'\r\n+        })\r\n     } catch (error) {\r\n-        \r\n+        res.json({ error})\r\n     }\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1635780241299,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n             data:{works}\r\n         })\r\n         \r\n     } catch (error) {\r\n-        res.json({ error})\r\n+        res.json(error)\r\n         \r\n     }\r\n }\r\n \r\n@@ -27,9 +27,9 @@\n             status: 'success',\r\n             data:{works} \r\n         })\r\n     } catch (error) {\r\n-        res.json({ error})\r\n+        res.json(error)\r\n     }\r\n }\r\n \r\n exports.updateOneWork = async (req, res, next) => {\r\n@@ -41,9 +41,9 @@\n             status: 'success',\r\n             data:{work} \r\n         })\r\n     } catch (error) {\r\n-        res.json({ error})\r\n+        res.json(error)\r\n     }\r\n }\r\n \r\n exports.deleteOneWork = async (req, res, next) =>{\r\n@@ -55,8 +55,8 @@\n             status: 'success',\r\n             message: 'Work deleted successfully'\r\n         })\r\n     } catch (error) {\r\n-        res.json({ error})\r\n+        res.json(error)\r\n     }\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1635781450168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,9 @@\n             status: 'success',\r\n             result: works.length,\r\n             data:{works}\r\n         })\r\n+        console.log(data)\r\n         \r\n     } catch (error) {\r\n         res.json(error)\r\n         \r\n"
+                },
+                {
+                    "date": 1635781494213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n             status: 'success',\r\n             result: works.length,\r\n             data:{works}\r\n         })\r\n-        console.log(data)\r\n+        console.log({data:{works}})\r\n         \r\n     } catch (error) {\r\n         res.json(error)\r\n         \r\n"
+                },
+                {
+                    "date": 1635781526221,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,10 +8,12 @@\n         res.status(200).json({\r\n             status: 'success',\r\n             result: works.length,\r\n             data:{works}\r\n+\r\n+            console.log({data:{works}})\r\n         })\r\n-        console.log({data:{works}})\r\n+       \r\n         \r\n     } catch (error) {\r\n         res.json(error)\r\n         \r\n"
+                },
+                {
+                    "date": 1635781556436,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n             status: 'success',\r\n             result: works.length,\r\n             data:{works}\r\n \r\n-            console.log({data:{works}})\r\n+           \r\n         })\r\n        \r\n         \r\n     } catch (error) {\r\n@@ -29,8 +29,10 @@\n         res.status(200).json({\r\n             status: 'success',\r\n             data:{works} \r\n         })\r\n+\r\n+        console.log({data:{works}})\r\n     } catch (error) {\r\n         res.json(error)\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1635781770515,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n \r\n         const works = await Work.find({}).populate('creator');\r\n         res.status(200).json({\r\n             status: 'success',\r\n-            result: works.length,\r\n+            results: works.length,\r\n             data:{works}\r\n \r\n            \r\n         })\r\n"
+                },
+                {
+                    "date": 1635782847725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,8 @@\n             status: 'success',\r\n             results: works.length,\r\n             data:{works}\r\n \r\n-           \r\n         })\r\n        \r\n         \r\n     } catch (error) {\r\n"
+                },
+                {
+                    "date": 1635782924192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,15 @@\n const Work = require('../models/Work');\r\n \r\n \r\n-exports.getAllWorks = async (req, res, next) => {\r\n+exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n \r\n-        const works = await Work.find({}).populate('creator');\r\n+        const work = await Work.find({}).populate('creator');\r\n         res.status(200).json({\r\n             status: 'success',\r\n-            results: works.length,\r\n-            data:{works}\r\n+            results: work.length,\r\n+            data: {work}\r\n \r\n         })\r\n        \r\n         \r\n"
+                },
+                {
+                    "date": 1635783171258,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     }\r\n }\r\n \r\n \r\n-exports.createOneWorks = async (req, res, next) => {\r\n+exports.createOneWork = async (req, res, next) => {\r\n     try {\r\n         const {userId} = req.user;\r\n         const works = await Work.create({...req.body, creator: userId});\r\n \r\n"
+                },
+                {
+                    "date": 1635783400546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,21 +2,16 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-\r\n-        const work = await Work.find({}).populate('creator');\r\n+        const work = await Work.find({}).populate('author');\r\n         res.status(200).json({\r\n             status: 'success',\r\n-            results: work.length,\r\n-            data: {work}\r\n-\r\n+            results:work.length,\r\n+            data:{work}\r\n         })\r\n-       \r\n-        \r\n     } catch (error) {\r\n-        res.json(error)\r\n-        \r\n+        res.json(error);\r\n     }\r\n }\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1635783766405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('author');\r\n+        const work = await Work.find({}).populate('creator');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                },
+                {
+                    "date": 1635783790294,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('creator');\r\n+        const work = await Work.find({}).populate('author');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                },
+                {
+                    "date": 1635784297423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('author');\r\n+        const work = await Work.find({}).populate('creator');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                },
+                {
+                    "date": 1635784310612,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('creator');\r\n+        const work = await Work.find({}).populate('author');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                },
+                {
+                    "date": 1635784447463,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n \r\n exports.createOneWork = async (req, res, next) => {\r\n     try {\r\n         const {userId} = req.user;\r\n-        const works = await Work.create({...req.body, creator: userId});\r\n+        const works = await Work.create({...req.body, author: userId});\r\n \r\n         res.status(200).json({\r\n             status: 'success',\r\n             data:{works} \r\n"
+                },
+                {
+                    "date": 1635784506830,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n \r\n exports.createOneWork = async (req, res, next) => {\r\n     try {\r\n         const {userId} = req.user;\r\n-        const works = await Work.create({...req.body, author: userId});\r\n+        const works = await Work.create({...req.body, creator: userId});\r\n \r\n         res.status(200).json({\r\n             status: 'success',\r\n             data:{works} \r\n"
+                },
+                {
+                    "date": 1635784935191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,16 +17,15 @@\n \r\n exports.createOneWork = async (req, res, next) => {\r\n     try {\r\n         const {userId} = req.user;\r\n-        const works = await Work.create({...req.body, creator: userId});\r\n+        const works = await Work.create({...req.body, author: userId});\r\n \r\n         res.status(200).json({\r\n             status: 'success',\r\n             data:{works} \r\n         })\r\n \r\n-        console.log({data:{works}})\r\n     } catch (error) {\r\n         res.json(error)\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1635785144561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n \r\n exports.createOneWork = async (req, res, next) => {\r\n     try {\r\n         const {userId} = req.user;\r\n-        const works = await Work.create({...req.body, author: userId});\r\n+        const works = await Work.create({...req.body, creator: userId});\r\n \r\n         res.status(200).json({\r\n             status: 'success',\r\n             data:{works} \r\n"
+                },
+                {
+                    "date": 1635785272178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n \r\n exports.createOneWork = async (req, res, next) => {\r\n     try {\r\n         const {userId} = req.user;\r\n-        const works = await Work.create({...req.body, creator: userId});\r\n+        const works = await Work.create({...req.body, author: userId});\r\n \r\n         res.status(200).json({\r\n             status: 'success',\r\n             data:{works} \r\n"
+                },
+                {
+                    "date": 1635785476131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('author');\r\n+        const work = await Work.find({}).populate('author','name');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                },
+                {
+                    "date": 1635785540032,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('author','name');\r\n+        const work = await Work.find({}).populate('author','username');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                },
+                {
+                    "date": 1635785578427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('author','username');\r\n+        const work = await Work.find({}).populate('author');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                },
+                {
+                    "date": 1635785599284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('author');\r\n+        const work = await Work.find({}).populate('author','username');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                },
+                {
+                    "date": 1635785699961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n exports.getAllWork = async (req, res, next) => {\r\n     try {\r\n-        const work = await Work.find({}).populate('author','username');\r\n+        const work = await Work.find({}).populate('author','username').select('fromdate todate reason registrationfor description createdAt');\r\n         res.status(200).json({\r\n             status: 'success',\r\n             results:work.length,\r\n             data:{work}\r\n"
+                }
+            ],
+            "date": 1635776796064,
+            "name": "Commit-0",
+            "content": "const Work = require('../models/Work');\r\n\r\n\r\nexports.getAllWorks = async (req, res, next) => {\r\n    try {\r\n        \r\n    } catch (error) {\r\n        \r\n    }\r\n}\r\n\r\n\r\nexports.createOneWorks = async (req, res, next) => {\r\n    try {\r\n        \r\n    } catch (error) {\r\n        \r\n    }\r\n}\r\n\r\nexports.updateOneWork = async (req, res, next) => {\r\n    try {\r\n        \r\n    } catch (error) {\r\n        \r\n    }\r\n}\r\n\r\n"
+        }
+    ]
+}

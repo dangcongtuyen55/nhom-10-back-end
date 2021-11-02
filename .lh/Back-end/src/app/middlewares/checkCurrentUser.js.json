@@ -1,0 +1,22 @@
+{
+    "sourceFile": "Back-end/src/app/middlewares/checkCurrentUser.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1634223180466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634225636701,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,18 +9,18 @@\n         req.user = null;\r\n         next();\r\n     }else{\r\n         //Get token from Authorization\r\n-        const token = Authorization.replace(\"Bearer\",\"\");\r\n+        const token = Authorization.replace('Bearer ','');\r\n \r\n         //Verify token\r\n \r\n         try {\r\n             const { userId} = jwt.verify(token, process.env.APP_SECRECT);\r\n             req.user = {userId};\r\n             next();\r\n-        } catch (err) {\r\n+        } catch (error) {\r\n             req.user = null;\r\n-            \r\n+            next();\r\n         }\r\n     }\r\n }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1634223180466,
+            "name": "Commit-0",
+            "content": "const jwt = require(\"jsonwebtoken\");\r\n\r\nexports.checkCurrentUser =(req, res, next)=>{\r\n    //Access Authorization from header\r\n\r\n    const Authorization= req.header(\"authorization\");\r\n\r\n    if(!Authorization){\r\n        req.user = null;\r\n        next();\r\n    }else{\r\n        //Get token from Authorization\r\n        const token = Authorization.replace(\"Bearer\",\"\");\r\n\r\n        //Verify token\r\n\r\n        try {\r\n            const { userId} = jwt.verify(token, process.env.APP_SECRECT);\r\n            req.user = {userId};\r\n            next();\r\n        } catch (err) {\r\n            req.user = null;\r\n            \r\n        }\r\n    }\r\n}"
+        }
+    ]
+}

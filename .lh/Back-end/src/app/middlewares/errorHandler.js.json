@@ -1,0 +1,46 @@
+{
+    "sourceFile": "Back-end/src/app/middlewares/errorHandler.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1633185211584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1633185715304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,9 @@\n exports.errorHandler =(err, req, res, next)=>{\r\n-    \r\n+\r\n+    err.statusCode = err.statusCode || 500;\r\n+    res.status(err.statusCode).json({\r\n+        status: 'fail',\r\n+        message: err.message\r\n+    })\r\n+\r\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635178116553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,15 @@\n exports.errorHandler =(err, req, res, next)=>{\r\n \r\n+   //Duplication\r\n+   \r\n+   if(err.code === 11000){\r\n+       err.statusCode = 400;\r\n+       for(let p in err.keyValue){\r\n+           err.message = `${p} have to be unique`;\r\n+       }\r\n+   }\r\n+\r\n     err.statusCode = err.statusCode || 500;\r\n     res.status(err.statusCode).json({\r\n         status: 'fail',\r\n         message: err.message\r\n"
+                },
+                {
+                    "date": 1635178333306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n    \r\n    if(err.code === 11000){\r\n        err.statusCode = 400;\r\n        for(let p in err.keyValue){\r\n-           err.message = `${p} have to be unique`;\r\n+           err.message = `${p} already exist`;\r\n        }\r\n    }\r\n \r\n     err.statusCode = err.statusCode || 500;\r\n"
+                },
+                {
+                    "date": 1635178749603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,15 @@\n            err.message = `${p} already exist`;\r\n        }\r\n    }\r\n \r\n+   //ObjectID: Not found\r\n+\r\n+   if(err.kind === 'ObjectID'){\r\n+       err.statusCode = 404;\r\n+       err.message =`The ${req.originalUrl} is not found because of wrong ID`\r\n+   }\r\n+\r\n     err.statusCode = err.statusCode || 500;\r\n     res.status(err.statusCode).json({\r\n         status: 'fail',\r\n         message: err.message\r\n"
+                },
+                {
+                    "date": 1635180285089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,15 +8,27 @@\n            err.message = `${p} already exist`;\r\n        }\r\n    }\r\n \r\n+\r\n+\r\n    //ObjectID: Not found\r\n \r\n    if(err.kind === 'ObjectID'){\r\n        err.statusCode = 404;\r\n        err.message =`The ${req.originalUrl} is not found because of wrong ID`\r\n    }\r\n \r\n+   //Validation\r\n+\r\n+   if(err.errors){\r\n+       err.statusCode = 400;\r\n+       err.message = []\r\n+       for(let p in err.errors){\r\n+           err.message.push(err.errors[p].properties.message);\r\n+       }\r\n+   }\r\n+\r\n     err.statusCode = err.statusCode || 500;\r\n     res.status(err.statusCode).json({\r\n         status: 'fail',\r\n         message: err.message\r\n"
+                },
+                {
+                    "date": 1635185445982,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,37 @@\n+exports.errorHandler =(err, req, res, next)=>{\r\n+\r\n+   //Duplication\r\n+   \r\n+   if(err.code === 11000){\r\n+       err.statusCode = 400;\r\n+       for(let p in err.keyValue){\r\n+           err.message = `${p} already exist`;\r\n+       }\r\n+   }\r\n+\r\n+\r\n+\r\n+//    //ObjectID: Not found\r\n+\r\n+//    if(err.kind === 'ObjectID'){\r\n+//        err.statusCode = 404;\r\n+//        err.message =`The ${req.originalUrl} is not found because of wrong ID`\r\n+//    }\r\n+\r\n+//    //Validation\r\n+\r\n+//    if(err.errors){\r\n+//        err.statusCode = 400;\r\n+//        err.message = []\r\n+//        for(let p in err.errors){\r\n+//            err.message.push(err.errors[p].properties.message);\r\n+//        }\r\n+//    }\r\n+\r\n+    err.statusCode = err.statusCode || 500;\r\n+    res.status(err.statusCode).json({\r\n+        status: 'fail',\r\n+        message: err.message\r\n+    })\r\n+\r\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1635185803380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,37 @@\n+exports.errorHandler =(err, req, res, next)=>{\r\n+\r\n+   //Duplication\r\n+   \r\n+   if(err.code === 11000){\r\n+       err.statusCode = 400;\r\n+       for(let p in err.keyValue){\r\n+           err.message = `${p} already exist`;\r\n+       }\r\n+   }\r\n+\r\n+\r\n+\r\n+//    //ObjectID: Not found\r\n+\r\n+//    if(err.kind === 'ObjectID'){\r\n+//        err.statusCode = 404;\r\n+//        err.message =`The ${req.originalUrl} is not found because of wrong ID`\r\n+//    }\r\n+\r\n+//    //Validation\r\n+\r\n+//    if(err.errors){\r\n+//        err.statusCode = 400;\r\n+//        err.message = []\r\n+//        for(let p in err.errors){\r\n+//            err.message.push(err.errors[p].properties.message);\r\n+//        }\r\n+//    }\r\n+\r\n+    err.statusCode = err.statusCode || 500;\r\n+    res.status(err.statusCode).json({\r\n+        status: 'fail',\r\n+        message: err.message\r\n+    })\r\n+\r\n+}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1633185211584,
+            "name": "Commit-0",
+            "content": "exports.errorHandler =(err, req, res, next)=>{\r\n    \r\n}"
+        }
+    ]
+}

@@ -1,0 +1,70 @@
+{
+    "sourceFile": "Back-end/src/app/models/Work.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 13,
+            "patches": [
+                {
+                    "date": 1635778674544,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1635778718503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,5 +26,8 @@\n     type:string, \r\n \r\n }\r\n \r\n-})\n\\ No newline at end of file\n+},{timestamps:true})\r\n+\r\n+module.exports = mongoose.model('Work', userSchema);\r\n+\r\n"
+                },
+                {
+                    "date": 1635778726553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,6 +28,6 @@\n }\r\n \r\n },{timestamps:true})\r\n \r\n-module.exports = mongoose.model('Work', userSchema);\r\n+module.exports = mongoose.model('Work', workSchema);\r\n \r\n"
+                },
+                {
+                    "date": 1635779103448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n const workSchema = new mongoose.Schema({\r\n \r\n fromdate:{\r\n-    type:date, \r\n+    type:Date, \r\n     required: [true,\" fromDate is required \"],\r\n },\r\n \r\n todate:{\r\n"
+                },
+                {
+                    "date": 1635779119144,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     required: [true,\" fromDate is required \"],\r\n },\r\n \r\n todate:{\r\n-    type:date, \r\n+    type:Date, \r\n     required: [true,\" toDate is required \"],\r\n },\r\n \r\n reason:{\r\n"
+                },
+                {
+                    "date": 1635779137110,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,19 +12,19 @@\n     required: [true,\" toDate is required \"],\r\n },\r\n \r\n reason:{\r\n-    type:string, \r\n+    type:String, \r\n     required: [true,\" reason is required\"]\r\n },\r\n \r\n registrationfor:{\r\n-    type:string, \r\n+    type:String, \r\n     required: [true,\" registration is required \"]\r\n },\r\n \r\n description:{\r\n-    type:string, \r\n+    type:String, \r\n \r\n }\r\n \r\n },{timestamps:true})\r\n"
+                },
+                {
+                    "date": 1635780485439,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,8 +24,13 @@\n \r\n description:{\r\n     type:String, \r\n \r\n+},\r\n+\r\n+creator:{\r\n+    type: mongoose.model('User', workSchema),\r\n+    ref: 'user',\r\n }\r\n \r\n },{timestamps:true})\r\n \r\n"
+                },
+                {
+                    "date": 1635780557815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n \r\n },\r\n \r\n creator:{\r\n-    type: mongoose.model('User', workSchema),\r\n+    type: mongoose.Schema.Types.ObjectId, \r\n     ref: 'user',\r\n }\r\n \r\n },{timestamps:true})\r\n"
+                },
+                {
+                    "date": 1635783719717,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     type:String, \r\n \r\n },\r\n \r\n-creator:{\r\n+author:{\r\n     type: mongoose.Schema.Types.ObjectId, \r\n     ref: 'user',\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1635783773395,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     type:String, \r\n \r\n },\r\n \r\n-author:{\r\n+creator:{\r\n     type: mongoose.Schema.Types.ObjectId, \r\n     ref: 'user',\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1635783794455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     type:String, \r\n \r\n },\r\n \r\n-creator:{\r\n+author:{\r\n     type: mongoose.Schema.Types.ObjectId, \r\n     ref: 'user',\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1635784271373,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     type:String, \r\n \r\n },\r\n \r\n-author:{\r\n+creator:{\r\n     type: mongoose.Schema.Types.ObjectId, \r\n     ref: 'user',\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1635784327436,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     type:String, \r\n \r\n },\r\n \r\n-creator:{\r\n+author:{\r\n     type: mongoose.Schema.Types.ObjectId, \r\n     ref: 'user',\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1635785087836,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n },\r\n \r\n author:{\r\n     type: mongoose.Schema.Types.ObjectId, \r\n-    ref: 'user',\r\n+    ref: 'User',\r\n }\r\n \r\n },{timestamps:true})\r\n \r\n"
+                }
+            ],
+            "date": 1635778674544,
+            "name": "Commit-0",
+            "content": "const mongoose = require('mongoose');\r\n\r\nconst workSchema = new mongoose.Schema({\r\n\r\nfromdate:{\r\n    type:date, \r\n    required: [true,\" fromDate is required \"],\r\n},\r\n\r\ntodate:{\r\n    type:date, \r\n    required: [true,\" toDate is required \"],\r\n},\r\n\r\nreason:{\r\n    type:string, \r\n    required: [true,\" reason is required\"]\r\n},\r\n\r\nregistrationfor:{\r\n    type:string, \r\n    required: [true,\" registration is required \"]\r\n},\r\n\r\ndescription:{\r\n    type:string, \r\n\r\n}\r\n\r\n})"
+        }
+    ]
+}

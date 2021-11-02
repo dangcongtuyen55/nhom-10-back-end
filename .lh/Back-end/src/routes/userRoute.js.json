@@ -1,0 +1,110 @@
+{
+    "sourceFile": "Back-end/src/routes/userRoute.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 23,
+            "patches": [
+                {
+                    "date": 1633141361617,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634223591054,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,14 @@\n const express = require('express');\r\n \r\n const User = require('../app/models/User');\r\n \r\n-const {login, register} = require('../app/controllers/userController');\r\n+const {login, register, getCurrentUser} = require('../app/controllers/userController');\r\n+const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n \r\n const router = express.Router();\r\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n+router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635239796105,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,7 +8,8 @@\n const router = express.Router();\r\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n+router.route('/getAllUser').get(getAllUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635239870456,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,15 @@\n const express = require('express');\r\n \r\n const User = require('../app/models/User');\r\n \r\n-const {login, register, getCurrentUser} = require('../app/controllers/userController');\r\n+const {login, register, getCurrentUser,getAllUsers} = require('../app/controllers/userController');\r\n const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n \r\n const router = express.Router();\r\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n-router.route('/getAllUser').get(getAllUser);\r\n+router.route('/getAllUsers').get(getAllUsers);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635240220542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,7 +9,8 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getAllUsers').get(getAllUsers);\r\n+router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635240251967,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n const express = require('express');\r\n \r\n const User = require('../app/models/User');\r\n \r\n-const {login, register, getCurrentUser,getAllUsers} = require('../app/controllers/userController');\r\n+const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser} = require('../app/controllers/userController');\r\n const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n \r\n const router = express.Router();\r\n \r\n"
+                },
+                {
+                    "date": 1635241193220,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n const router = express.Router();\r\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n-router.route('/getAllUsers').get(getAllUsers);\r\n+router.route('/getallusers').get(getAllUsers);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635263073135,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,16 @@\n+const express = require('express');\r\n+\r\n+const User = require('../app/models/User');\r\n+\r\n+const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser} = require('../app/controllers/userController');\r\n+const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n+\r\n+const router = express.Router();\r\n+\r\n+router.route('/register').post(register);\r\n+router.route('/login').post(login);\r\n+router.route('/getallusers').get(getAllUsers);\r\n+router.route('/:userId').put(updateuser).delete(deleteuser);\r\n+router.route('/').get(checkCurrentUser, getCurrentUser); \r\n+\r\n+module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635263111138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,24 +9,8 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n-router.route('/:userId').put(updateuser).delete(deleteuser);\r\n-router.route('/').get(checkCurrentUser, getCurrentUser); \r\n-\r\n-module.exports = router;\r\n-const express = require('express');\r\n-\r\n-const User = require('../app/models/User');\r\n-\r\n-const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser} = require('../app/controllers/userController');\r\n-const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n-\r\n-const router = express.Router();\r\n-\r\n-router.route('/register').post(register);\r\n-router.route('/login').post(login);\r\n-router.route('/getallusers').get(getAllUsers);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635264835111,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,8 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n-router.route('/:userId').put(updateUser).delete(deleteUser);\r\n+router.route('/:userId').put(updateUser).delete(deleteUser).put(blockUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635264862157,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n const express = require('express');\r\n \r\n const User = require('../app/models/User');\r\n \r\n-const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser} = require('../app/controllers/userController');\r\n+const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser, blockUser} = require('../app/controllers/userController');\r\n const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n \r\n const router = express.Router();\r\n \r\n"
+                },
+                {
+                    "date": 1635264988863,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,8 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n-router.route('/:userId').put(updateUser).delete(deleteUser).put(blockUser);\r\n+router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635265056613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,9 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n+router.route('/block/:userId').put(blockUser);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635265114230,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n+router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/block/:userId').put(blockUser);\r\n-router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635265131170,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n+router.route('/block/:userId').put(blockUser);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n-router.route('/block/:userId').put(blockUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635265563430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n-router.route('/block/:userId').put(blockUser);\r\n+// router.route('/block/:userId').put(blockUser);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635265587747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n-// router.route('/block/:userId').put(blockUser);\r\n+router.route('/block/:userId').path(blockUser);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635265598608,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n-router.route('/block/:userId').path(blockUser);\r\n+router.route('/block/:userId').pacth(blockUser);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635265607597,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n-router.route('/block/:userId').pacth(blockUser);\r\n+router.route('/block/:userId').patch(blockUser);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635265655011,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n-router.route('/block/:userId').patch(blockUser);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n+router.route('/block/:userId').patch(blockUser);\r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635266507512,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,10 @@\n \r\n router.route('/register').post(register);\r\n router.route('/login').post(login);\r\n router.route('/getallusers').get(getAllUsers);\r\n+router.route('/block/:userId').patch(blockUser);\r\n+router.route('/unblock/:userId').patch(unBlockUser);\r\n router.route('/:userId').put(updateUser).delete(deleteUser);\r\n router.route('/').get(checkCurrentUser, getCurrentUser); \r\n-router.route('/block/:userId').patch(blockUser);\r\n \r\n module.exports = router;\r\n"
+                },
+                {
+                    "date": 1635266517860,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n const express = require('express');\r\n \r\n const User = require('../app/models/User');\r\n \r\n-const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser, blockUser} = require('../app/controllers/userController');\r\n+const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser, blockUser, unblock} = require('../app/controllers/userController');\r\n const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n \r\n const router = express.Router();\r\n \r\n"
+                },
+                {
+                    "date": 1635266584598,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n const express = require('express');\r\n \r\n const User = require('../app/models/User');\r\n \r\n-const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser, blockUser, unblock} = require('../app/controllers/userController');\r\n+const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser, blockUser, unBlockUsers} = require('../app/controllers/userController');\r\n const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n \r\n const router = express.Router();\r\n \r\n"
+                },
+                {
+                    "date": 1635266599415,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n const express = require('express');\r\n \r\n const User = require('../app/models/User');\r\n \r\n-const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser, blockUser, unBlockUsers} = require('../app/controllers/userController');\r\n+const {login, register, getCurrentUser,getAllUsers,updateUser,deleteUser, blockUser, unBlockUser} = require('../app/controllers/userController');\r\n const { checkCurrentUser } = require('../app/middlewares/checkCurrentUser');\r\n \r\n const router = express.Router();\r\n \r\n"
+                }
+            ],
+            "date": 1633141361617,
+            "name": "Commit-0",
+            "content": "const express = require('express');\r\n\r\nconst User = require('../app/models/User');\r\n\r\nconst {login, register} = require('../app/controllers/userController');\r\n\r\nconst router = express.Router();\r\n\r\nrouter.route('/register').post(register);\r\nrouter.route('/login').post(login);\r\n\r\nmodule.exports = router;\r\n"
+        }
+    ]
+}
