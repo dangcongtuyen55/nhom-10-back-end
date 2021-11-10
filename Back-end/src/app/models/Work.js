@@ -19,7 +19,8 @@ reason:{
 
 registrationfor:{
     type:String, 
-    required: [true," registration is required "]
+    required: [true," registration is required "],
+    default:['Đặng Công Tuyến']
 },
 
 description:{
@@ -27,10 +28,10 @@ description:{
 
 },
 
-author:{
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User',
-}
+// author:{
+//     type: mongoose.Schema.Types.ObjectId, 
+//     ref: 'User',
+// }
 
 },{timestamps:true})
 

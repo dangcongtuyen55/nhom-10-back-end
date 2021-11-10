@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 13,
+            "activePatchIndex": 17,
             "patches": [
                 {
                     "date": 1635778674544,
@@ -60,6 +60,22 @@
                 {
                     "date": 1635785087836,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n },\r\n \r\n author:{\r\n     type: mongoose.Schema.Types.ObjectId, \r\n-    ref: 'user',\r\n+    ref: 'User',\r\n }\r\n \r\n },{timestamps:true})\r\n \r\n"
+                },
+                {
+                    "date": 1635953449793,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,12 +26,12 @@\n     type:String, \r\n \r\n },\r\n \r\n-author:{\r\n-    type: mongoose.Schema.Types.ObjectId, \r\n-    ref: 'User',\r\n-}\r\n+// author:{\r\n+//     type: mongoose.Schema.Types.ObjectId, \r\n+//     ref: 'User',\r\n+// }\r\n \r\n },{timestamps:true})\r\n \r\n module.exports = mongoose.model('Work', workSchema);\r\n"
+                },
+                {
+                    "date": 1636350025185,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,14 +2,14 @@\n \r\n const workSchema = new mongoose.Schema({\r\n \r\n fromdate:{\r\n-    type:Date, \r\n+    type:String, \r\n     required: [true,\" fromDate is required \"],\r\n },\r\n \r\n todate:{\r\n-    type:Date, \r\n+    type:String, \r\n     required: [true,\" toDate is required \"],\r\n },\r\n \r\n reason:{\r\n"
+                },
+                {
+                    "date": 1636350166466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,14 +2,14 @@\n \r\n const workSchema = new mongoose.Schema({\r\n \r\n fromdate:{\r\n-    type:String, \r\n+    type:Date, \r\n     required: [true,\" fromDate is required \"],\r\n },\r\n \r\n todate:{\r\n-    type:String, \r\n+    type:Date, \r\n     required: [true,\" toDate is required \"],\r\n },\r\n \r\n reason:{\r\n"
+                },
+                {
+                    "date": 1636352408356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,10 @@\n },\r\n \r\n registrationfor:{\r\n     type:String, \r\n-    required: [true,\" registration is required \"]\r\n+    required: [true,\" registration is required \"],\r\n+    default:['Đặng Công Tuyến']\r\n },\r\n \r\n description:{\r\n     type:String, \r\n"
                 }
             ],
             "date": 1635778674544,

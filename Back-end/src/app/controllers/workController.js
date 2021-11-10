@@ -3,11 +3,24 @@ const Work = require('../models/Work');
 
 exports.getAllWork = async (req, res, next) => {
     try {
-        const work = await Work.find({}).populate('author','username').select('fromdate todate reason registrationfor description createdAt');
+        const work = await Work.find({})
         res.status(200).json({
             status: 'success',
             results:work.length,
-            data:{work}
+            works:work
+        })
+    } catch (error) {
+        res.json(error);
+    }
+}
+
+exports.getWorkById = async(req, res, next)=>{
+    try {
+        const {workId} = req.params;
+        const work = await Work.findById(workId,{...req.body});
+        res.status(200).json({
+            status: 'success',
+            works:work
         })
     } catch (error) {
         res.json(error);
@@ -18,7 +31,7 @@ exports.getAllWork = async (req, res, next) => {
 exports.createOneWork = async (req, res, next) => {
     try {
         const {userId} = req.user;
-        const works = await Work.create({...req.body, author: userId});
+        const works = await Work.create({...req.body});
 
         res.status(200).json({
             status: 'success',
@@ -37,7 +50,7 @@ exports.updateOneWork = async (req, res, next) => {
 
         res.status(200).json({
             status: 'success',
-            data:{work} 
+            works:{work} 
         })
     } catch (error) {
         res.json(error)
